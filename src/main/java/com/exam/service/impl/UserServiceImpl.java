@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.exam.helper.UserFoundException;
+import com.exam.helper.UserNotFoundException;
 import com.exam.model.User;
 import com.exam.model.UserRole;
 import com.exam.repo.RoleRepository;
@@ -23,15 +25,21 @@ public class UserServiceImpl implements UserService{
 	
 	//creating user
 	@Override
-	public User createUser(User user, Set<UserRole> userRoles) throws Exception{
+	public User createUser(User user, Set<UserRole> userRoles) throws UserFoundException{
 		// TODO Auto-generated method stub
 		//return null;
 		
 		User localUser = this.userRepository.findByUsername(user.getUsername());
+		User localUsermail = this.userRepository.findByEmail(user.getEmail());
 		
 		if(localUser!=null) {
-			System.out.println("User already present");
-			throw new Exception("User already present");
+			System.out.println("User with username exists in database");
+			//throw new Exception("User with username exists");
+			throw new UserFoundException("User with username already exists in database");
+		}
+		else if(localUsermail!=null) {
+			System.out.println("User with email exists in database");
+			throw new UserFoundException("User with email already exists in database");
 		}
 		else {
 			//create user
@@ -58,14 +66,14 @@ public class UserServiceImpl implements UserService{
 
 	//update user by username
 	@Override
-	public User updateUser(User user) throws Exception {
+	public User updateUser(User user) throws UserNotFoundException {
 		// TODO Auto-generated method stub
 		
 		User localUser = this.userRepository.findByUsername(user.getUsername());
 		
 		if(localUser==null) {
-			System.out.println("User absent");
-			throw new Exception("User absent");
+			System.out.println("User does not exist in database");
+			throw new UserNotFoundException();
 		}
 		else {
 			user.setId(localUser.getId());
