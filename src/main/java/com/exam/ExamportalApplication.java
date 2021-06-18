@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.exam.model.Role;
 import com.exam.model.User;
@@ -21,6 +23,9 @@ public class ExamportalApplication implements CommandLineRunner{
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -32,7 +37,7 @@ public class ExamportalApplication implements CommandLineRunner{
 //		user.setFirstName("AB");
 //		user.setLastName("D");
 //		user.setUsername("ABD");
-//		user.setPassword("ad@mail.com");
+//		user.setPassword(this.passwordEncoder.encode("ad@mail.com"));
 //		user.setEmail("ad@mail.com");
 //		user.setProfile("default.png");
 //		

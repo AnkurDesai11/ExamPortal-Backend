@@ -36,10 +36,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
 	@Bean
-	//public BCryptPasswordEncoder passwordEncoder(){ //for prod use
-	public PasswordEncoder passwordEncoder(){ //for test use, plaintext passwords
-		return NoOpPasswordEncoder.getInstance(); //for test use, plaintext passwords
-		//return new BCryptPasswordEncoder(); //for prod use
+	public BCryptPasswordEncoder passwordEncoder(){ //for prod use
+	//public PasswordEncoder passwordEncoder(){ //for test use, plaintext passwords
+		//return NoOpPasswordEncoder.getInstance(); //for test use, plaintext passwords
+		return new BCryptPasswordEncoder(); //for prod use
 	}
 	
 	@Override

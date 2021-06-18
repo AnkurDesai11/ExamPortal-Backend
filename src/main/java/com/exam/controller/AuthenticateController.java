@@ -70,8 +70,11 @@ public class AuthenticateController {
 		
 	}
 	
-	@GetMapping("/current-user")
+	//returns the details of logged in user
+	@GetMapping("/current-user") 
 	public User getCurrentUser(Principal principal) {
-		return ((User)this.userDetailsServiceImpl.loadUserByUsername(principal.getName()));
+		User currentUser = (User)this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
+		currentUser.setPassword("");
+		return currentUser;
 	}
 }
