@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exam.helper.UserFoundException;
 import com.exam.helper.UserNotFoundException;
+import com.exam.model.JwtRequest;
 import com.exam.model.Role;
 import com.exam.model.User;
 import com.exam.model.UserRole;
@@ -74,6 +75,12 @@ public class UserController {
 	@PutMapping("/")
 	public User updateUser(@RequestBody User user) throws Exception {
 		return this.userService.updateUser(user);
+	}
+	
+	//authenticate user password while edit
+	@PostMapping("/edit-auth")
+	public User passwordAuthUser(@RequestBody JwtRequest jwtRequest) throws Exception {
+		return this.userService.passwordAuthUser(jwtRequest);
 	}
 	
 	@ExceptionHandler(UserFoundException.class)

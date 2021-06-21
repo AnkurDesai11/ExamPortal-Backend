@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.exam.helper.UserFoundException;
 import com.exam.helper.UserNotFoundException;
+import com.exam.model.JwtRequest;
 import com.exam.model.User;
 import com.exam.model.UserRole;
 
@@ -17,5 +18,7 @@ public interface UserService {
 	public void deleteUser(Long userId);
 	
 	public User updateUser(User user) throws Exception;
+
+	public User passwordAuthUser(JwtRequest jwtRequest) throws Exception;
 	
 }

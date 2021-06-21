@@ -3,11 +3,14 @@ package com.exam.service.impl;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.exam.helper.UserFoundException;
 import com.exam.helper.UserNotFoundException;
+import com.exam.model.JwtRequest;
 import com.exam.model.User;
 import com.exam.model.UserRole;
 import com.exam.repo.RoleRepository;
@@ -22,6 +25,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	//creating user
 	@Override
@@ -77,8 +83,30 @@ public class UserServiceImpl implements UserService{
 		}
 		else {
 			user.setId(localUser.getId());
+			user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		}
-		return this.userRepository.save(user);
+		User updatedUser = this.userRepository.save(user);
+		updatedUser.setPassword("");
+		return updatedUser;
+	}
+
+	@Override
+	public User passwordAuthUser(JwtRequest jwtRequest) throws Exception {
+		// TODO Auto-generated method stub
+		User localUser = this.userRepository.findByUsername(jwtRequest.getUsername());
+		if(localUser==null) {
+			System.out.println("User does not exist in database");
+			throw new UserNotFoundException();
+		}
+		System.out.println("User found");
+		if(this.passwordEncoder.matches(jwtRequest.getPassword(), localUser.getPassword())) {
+			localUser.setPassword("");
+			return localUser;
+		}
+		else {
+			System.out.println("Incorrect old password");
+			throw new UserFoundException("Incorrect old password");
+		}
 	}
 	
 }
