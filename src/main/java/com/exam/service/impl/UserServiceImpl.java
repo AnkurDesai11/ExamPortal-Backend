@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService{
 		else {
 			user.setId(localUser.getId());
 			user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+			user.setProfile(localUser.getProfile());
 		}
 		User updatedUser = this.userRepository.save(user);
 		updatedUser.setPassword("");
