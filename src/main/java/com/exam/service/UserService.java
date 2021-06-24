@@ -2,8 +2,6 @@ package com.exam.service;
 
 import java.util.*;
 
-import com.exam.helper.UserFoundException;
-import com.exam.helper.UserNotFoundException;
 import com.exam.model.JwtRequest;
 import com.exam.model.User;
 import com.exam.model.UserRole;
