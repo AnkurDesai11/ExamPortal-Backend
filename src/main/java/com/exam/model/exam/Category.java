@@ -25,7 +25,7 @@ public class Category {
 	
 	private String description;
 	
-	@OneToMany(mappedBy = "category",orphanRemoval=true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore //to remove cyclic dependency
 	private Set<Quiz> quizzes = new LinkedHashSet<>();
 

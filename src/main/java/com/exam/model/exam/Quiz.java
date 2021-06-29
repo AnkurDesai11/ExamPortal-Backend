@@ -33,8 +33,8 @@ public class Quiz {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
 	
-	//quiz deletion requires 2 calls check fix
-	@OneToMany(mappedBy = "quiz",orphanRemoval=true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//quiz deletion requires 2 calls check fix - fixed make fetch type lazy in one to many in category
+	@OneToMany(mappedBy = "quiz",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore //when we fetch quiz we wont get question data, we will have to fetch it separately
 	private Set<Question> questions = new HashSet<>();
 
