@@ -42,7 +42,7 @@ public class QuestionController {
 		return ResponseEntity.ok(this.questionService.addQuestion(question));
 	}
 		
-	//get all question of any quiz
+	//get max specified questions of any quiz
 	@GetMapping("/quiz/{quizId}")
 	public ResponseEntity<?> getQuestionsOfQuiz(@PathVariable("quizId") Long quizId) {
 //		Quiz quiz = new Quiz();
@@ -57,6 +57,22 @@ public class QuestionController {
 		}
 		return ResponseEntity.ok(list);
 	}
+		
+	//get all questions of any quiz
+		@GetMapping("/quiz/all/{quizId}")
+		public ResponseEntity<?> getAllQuestionsOfQuiz(@PathVariable("quizId") Long quizId) {
+			Quiz quiz = new Quiz();
+			quiz.setqId(quizId);
+			return ResponseEntity.ok(this.questionService.getQuestionsOfQuiz(quiz));
+//			Quiz quiz = this.quizService.getQuiz(quizId);
+//			Set<Question> questions = quiz.getQuestions();
+//			List list = new ArrayList<>(questions);
+//			Collections.shuffle(list);
+//			if(list.size()>Integer.parseInt(quiz.getNumberOfQuestions())) {
+//				list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestions() + 1));
+//			}
+//			return ResponseEntity.ok(list);
+		}
 		
 	//get single question
 	@GetMapping("/{quesId}")

@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Question {
 
@@ -27,6 +29,7 @@ public class Question {
 	private String answer;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Quiz quiz;
 
 	public Question() {
