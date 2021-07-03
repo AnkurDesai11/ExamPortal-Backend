@@ -28,8 +28,7 @@ public class Question {
 	
 	private String answer;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Quiz quiz;
 
 	public Question() {
