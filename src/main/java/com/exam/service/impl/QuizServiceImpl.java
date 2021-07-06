@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.exam.model.exam.Category;
 import com.exam.model.exam.Quiz;
 import com.exam.repo.QuizRepository;
 import com.exam.service.QuizService;
@@ -28,6 +29,13 @@ public class QuizServiceImpl implements QuizService {
 	@Override
 	public Set<Quiz> getQuizzes() {
 		return new HashSet<>(this.quizRepository.findAll());
+	}
+	
+	@Override
+	public Set<Quiz> getQuizzesInCategory(Long catId) {
+		Category category = new Category();
+		category.setcId(catId);
+		return new HashSet<>(this.quizRepository.findByCategory(category));
 	}
 
 	@Override

@@ -15,5 +15,7 @@ public interface QuizService {
 	public Quiz getQuiz(Long quizId);
 	
 	public boolean deleteQuiz(Long quizId);
+
+	public Set<Quiz> getQuizzesInCategory(Long catId);
 	
 }
