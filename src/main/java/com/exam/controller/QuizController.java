@@ -42,7 +42,7 @@ public class QuizController {
 	}
 	
 	//get quiz in category
-	@GetMapping("/byCategory/{catId}")
+	@GetMapping("/category/{catId}")
 	public ResponseEntity<?> getQuizzesInCategory(@PathVariable("catId") Long catId) {
 		return ResponseEntity.ok(this.quizService.getQuizzesInCategory(catId));
 	}
