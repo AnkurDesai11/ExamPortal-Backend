@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.exam.model.exam.Category;
 import com.exam.model.exam.Quiz;
 import com.exam.service.QuizService;
 
@@ -41,10 +42,26 @@ public class QuizController {
 		return ResponseEntity.ok(this.quizService.getQuizzes());
 	}
 	
-	//get quiz in category
+	//get all active quiz
+	@GetMapping("/active")
+	public ResponseEntity<?> getActiveQuizzes() {
+		return ResponseEntity.ok(this.quizService.getActiveQuizzes());
+	}
+	
+	//get quizzes in category
 	@GetMapping("/category/{catId}")
 	public ResponseEntity<?> getQuizzesInCategory(@PathVariable("catId") Long catId) {
 		return ResponseEntity.ok(this.quizService.getQuizzesInCategory(catId));
+	}
+	
+	//above category set in implementation function, below category set in controller function, check which to use
+	
+	//get active quizzes in category
+	@GetMapping("/active/category/{catId}")
+	public ResponseEntity<?> getActiveQuizzesInCategory(@PathVariable("catId") Long catId) {
+		Category category = new Category();
+		category.setcId(catId);
+		return ResponseEntity.ok(this.quizService.getActiveQuizzesInCategory(category));
 	}
 	
 	//get single quiz
