@@ -28,6 +28,8 @@ public class Quiz {
 	
 	private String numberOfQuestions;
 	
+	private String totalTime;
+	
 	private boolean active = false;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -153,5 +155,19 @@ public class Quiz {
 		this.questions = questions;
 	}
 	
+	/**
+	 * @return the totalTime
+	 */
+	public String getTotalTime() {
+		return totalTime;
+	}
+
+	/**
+	 * @param totalTime the totalTime to set
+	 */
+	public void setTotalTime(String totalTime) {
+		this.totalTime = totalTime;
+	}
+
 	
 }
