@@ -55,7 +55,7 @@ public class QuestionController {
 		if(list.size()>Integer.parseInt(quiz.getNumberOfQuestions())) {
 			list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestions() + 1));
 		}
-		list.forEach(q -> ((Question) q).setAnswer(""));
+		//list.forEach(q -> ((Question) q).setAnswer("")); not required can use transient
 		return ResponseEntity.ok(list);
 	}
 		
