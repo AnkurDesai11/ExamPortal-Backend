@@ -55,7 +55,7 @@ public class QuestionController {
 		if(list.size()>Integer.parseInt(quiz.getNumberOfQuestions())) {
 			list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestions() + 1));
 		}
-		//list.forEach(q -> ((Question) q).setAnswer("")); not required can use transient
+		list.forEach(q -> ((Question) q).setAnswer("")); //not required can use json ignore
 		return ResponseEntity.ok(list);
 	}
 		
@@ -85,5 +85,31 @@ public class QuestionController {
 	@DeleteMapping("/{quesId}")
 	public boolean deleteQuestion(@PathVariable("quesId") Long quesId) {
 		return this.questionService.deleteQuestion(quesId);
+	}
+	
+	//evaluate result
+	@PostMapping("/quiz/evaluate")
+	public ResponseEntity<?> evaluateResult(@RequestBody List<Question> questions){
+		//System.out.println(questions);
+		double score=0.0;
+		int correntAnswers=0;
+		int attempts=0;
+		double singleQuestionScore = Float.parseFloat(questions.get(0).getQuiz().getMaxMarks())/Float.parseFloat(questions.get(0).getQuiz().getNumberOfQuestions());
+		for(Question q : questions){
+			Question question = this.questionService.getQuestion(q.getQuesId());
+			if(question.getAnswer().trim().equals(q.getAnswer().trim())) {
+				score+=singleQuestionScore;
+				correntAnswers++;
+				attempts++;
+			}
+			else if(q.getAnswer().trim()==null || (q.getAnswer().trim().equals("")) ) {
+				//attempts++;
+			}
+			else {
+				attempts++;
+			}
+		}
+		Map <Object, Object> resultMap = Map.of("score",score,"correctAnswers",correntAnswers,"attempts",attempts);
+		return ResponseEntity.ok(resultMap);
 	}
 }

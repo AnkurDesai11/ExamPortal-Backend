@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,6 +28,9 @@ public class Question {
 	private String option4;
 	
 	private String answer;
+	
+	//@Transient not required, clear answer while sending get answer back
+	//private String enteredAnswer;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Quiz quiz;
@@ -160,6 +164,19 @@ public class Question {
 		this.quiz = quiz;
 	}
 	
-	
+//	/**
+//	 * @return the enteredAnswer
+//	 */
+//	public String getEnteredAnswer() {
+//		return enteredAnswer;
+//	}
+//
+//	/**
+//	 * @param enteredAnswer the enteredAnswer to set
+//	 */
+//	public void setEnteredAnswer(String enteredAnswer) {
+//		this.enteredAnswer = enteredAnswer;
+//	}
+
 	
 }
