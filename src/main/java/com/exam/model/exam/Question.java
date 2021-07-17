@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Question {
@@ -27,6 +28,7 @@ public class Question {
 	private String option3;
 	private String option4;
 	
+	//@JsonIgnore //if this used then answer not read and written into database
 	private String answer;
 	
 	//@Transient not required, clear answer while sending get answer back
@@ -139,6 +141,7 @@ public class Question {
 	/**
 	 * @return the answer
 	 */
+	//@JsonProperty("answer") //When used along with @JsonIgnore this will let this property only be read from database cannot write
 	public String getAnswer() {
 		return answer;
 	}
@@ -146,6 +149,7 @@ public class Question {
 	/**
 	 * @param answer the answer to set
 	 */
+	//@JsonProperty("answer") //When used along with @JsonIgnore this will let this property only be written to database cannot read
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
